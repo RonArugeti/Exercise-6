@@ -13,12 +13,15 @@ int main() {
     char c = 0b10100111;
     char d = 0b01001100;
     
-    short in = 0b1100011100001100;
+    short in = 0b1100010100001101;
     int numberFromBit = pack4CharsInt(a, b, c, d);
+    printf("binary number %d packed from 4 chars is: ", numberFromBit);
     print_binaryInt(numberFromBit);
-    printf("\n");
-    checkEvenParity(in);
-
+   int parity = checkEvenParity(in);
+    if (parity) {
+        printf("The Binary Number %d is parity bitwise\n", in);
+    }else
+        printf("The Binary Number %d is not parity bitwise\n", in);
     return 0;
 }
 int pack4CharsInt(char c1, char c2, char c3, char c4){
@@ -35,13 +38,13 @@ int pack4CharsInt(char c1, char c2, char c3, char c4){
 int checkEvenParity(short input)
 {
     int count = 0;
-    unsigned short mask = 0b0000000000000001;
+    unsigned short mask = 0b1000000000000000;
     
     for (int i = 0; i < 16; i++) {
         if (input & mask) {
             count++;
         }
-        mask <<= 1;
+        input <<= 1;
     }
     if (!(count % 2))
     return 1;
